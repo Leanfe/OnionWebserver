@@ -53,21 +53,6 @@ LRESULT CALLBACK SettingsDlgProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lPa
         WS_CHILD | WS_VISIBLE | WS_BORDER | ES_MULTILINE | ES_AUTOVSCROLL, 
         10, 10, 200, 200, hwnd, (HMENU)IDC_BRIDGES_EDIT, 
         GetModuleHandle(NULL), NULL);
-
-      // Get the text from the edit control
-        int len = GetWindowTextLength(hBridgesEdit);
-        std::vector<char> buffer(len + 1);
-        GetWindowText(hBridgesEdit, &buffer[0], len + 1);
-        
-        // Open the file for writing
-        std::ofstream file(filePath);
-        if (file.is_open())
-        {
-            // Write the text from the edit control to the file
-            file << &buffer[0];
-            file.close();
-        }
-
       break;
     }
     case WM_COMMAND:
@@ -78,8 +63,21 @@ LRESULT CALLBACK SettingsDlgProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lPa
             case IDOK:
             {
 
-                // Save the bridges from the edit control to a file or configuration
-                // ...
+
+              // Get the text from the edit control
+                int len = GetWindowTextLength(hBridgesEdit);
+                std::vector<char> buffer(len + 1);
+                GetWindowText(hBridgesEdit, &buffer[0], len + 1);
+
+                // Open the file for writing
+                std::ofstream file(filePath);
+                if (file.is_open())
+                {
+                    // Write the text from the edit control to the file
+                    file << &buffer[0];
+                    file.close();
+                }
+
                 EndDialog(hwnd, 0);
                 break;
             }
