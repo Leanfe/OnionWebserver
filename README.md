@@ -1,2 +1,2 @@
 # OnionWebserver
-Implement a HTTP webserver using the C++ library libonion
+HTTP WebServer for TOR, written on C++.
